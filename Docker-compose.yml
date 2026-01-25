@@ -1,0 +1,7 @@
+services:
+ apache2:
+  container_name: apache2-container
+  image: miapache3
+  ports:
+   - 8090:80
+  restart: unless-stoppedn
