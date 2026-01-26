@@ -4,7 +4,7 @@ services:
   image: miapache3
   ports:
    - 8090:80
-  restart: unless-stoppedn
+  restart: unless-stopped
 
  watchtower:
   image: containrrr/watchtower
