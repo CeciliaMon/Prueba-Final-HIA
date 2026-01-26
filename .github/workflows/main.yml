@@ -1,0 +1,29 @@
+name: Docker Build and Deploy
+
+# Se activa cada vez que haces un 'push' a la rama principal
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Descarga el código de tu repo en el servidor de GitHub
+    - name: Checkout code
+      uses: actions/actions/checkout@v3
+
+    # 2. Se loguea en Docker Hub (necesitás cuenta ahí)
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # 3. Construye la imagen y la sube (Push)
+    - name: Build and push Docker image
+# Usa tu nombre de usuario de Docker Hub y el nombre que quieras para la imagen
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/miapache3:latest .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/miapache3:latest
