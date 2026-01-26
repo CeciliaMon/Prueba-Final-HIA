@@ -16,4 +16,6 @@ services:
   command: --interval 30 --cleanup # Watchtower revisará Docker Hub cada 30 segundos
   environment:
   # Watchtower solo monitoreará el contenedor cuyo nombre (container_name) sea 'my-node-app'
+   - DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME} 
+   - DOCKERHUB_TOKEN=${DOCKERHUB_TOKEN}
    - WATCHTOWER_INCLUDE_STOPPED=apache2-container
