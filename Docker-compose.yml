@@ -7,7 +7,7 @@ services:
   restart: unless-stopped
 
  watchtower:
-  image: containrrr/watchtower
+  image: containrrr/watchtower:latest-dev
   container_name: watchtower # Nombrar el contenedor ayuda a gestionarlo
   restart: unless-stopped
   volumes:
@@ -18,4 +18,5 @@ services:
   # Watchtower solo monitoreará el contenedor cuyo nombre (container_name) sea 'my-node-app'
    - DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME} 
    - DOCKERHUB_TOKEN=${DOCKERHUB_TOKEN}
-   - WATCHTOWER_INCLUDE_STOPPED=apache2-container
+   - WATCHTOWER_SCOPE=com.centurylinklabs.watchtower.monitor-only=true
+  #  - WATCHTOWER_INCLUDE_STOPPED=apache2-container
