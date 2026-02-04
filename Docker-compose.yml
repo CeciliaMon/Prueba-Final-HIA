@@ -2,7 +2,7 @@ services:
  apache2:
   container_name: apache2-container
   build: .
-  image: chechi20/miapache3
+  image: chechi20/miapache3 #lol
   ports:
    - 8090:80
   restart: unless-stopped
