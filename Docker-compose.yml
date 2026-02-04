@@ -1,10 +1,13 @@
 services:
  apache2:
   container_name: apache2-container
-  image: miapache3
+  build: .
+  image: chechi20/miapache3
   ports:
    - 8090:80
   restart: unless-stopped
+  labels:
+   - "com.centurylinklabs.watchtower.enable=true"
 
  watchtower:
   image: containrrr/watchtower:latest-dev
@@ -13,10 +16,9 @@ services:
   volumes:
   # Permite a Watchtower acceder y controlar el demonio de Docker
    - /var/run/docker.sock:/var/run/docker.sock
-  command: --interval 30 --cleanup # Watchtower revisará Docker Hub cada 30 segundos
   environment:
-  # Watchtower solo monitoreará el contenedor cuyo nombre (container_name) sea 'my-node-app'
-   - DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME} 
-   - DOCKERHUB_TOKEN=${DOCKERHUB_TOKEN}
-   - WATCHTOWER_SCOPE=com.centurylinklabs.watchtower.monitor-only=true
-  #  - WATCHTOWER_INCLUDE_STOPPED=apache2-container
+   - REPO_USER=${DOCKERHUB_USERNAME}
+   - REPO_PASS=${DOCKERHUB_TOKEN}
+    # --cleanup borra la imagen vieja para no llenar el disco
+    # --label-enable hace que solo actualice los que tengan la etiqueta 'enable=true'
+  command: --interval 60 --cleanup
