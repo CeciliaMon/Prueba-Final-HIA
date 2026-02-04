@@ -14,7 +14,7 @@
 
 # CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
-FROM ubuntu:22.04
+FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
